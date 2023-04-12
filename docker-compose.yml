@@ -1,0 +1,41 @@
+volumes:
+  data:
+
+services:
+
+  database:
+  
+    container_name: postgresql_django
+    
+    image: 6a35e2c987a6
+    
+    ports:
+      - 5432:5432
+      
+    environment:
+      - POSTGRES_PASSWORD=123456
+      
+    volumes:
+      - .docker/dbPostgres:/var/lib/postgresql/data
+      
+  pgadmin:
+ 
+    image: caff58cad617
+
+    container_name: pgadmin_django
+
+    tty: true
+
+    environment:
+
+      - PGADMIN_DEFAULT_EMAIL=admin@admin.com
+
+      - PGADMIN_DEFAULT_PASSWORD=admin
+
+    ports:
+
+      - "8000:80"
+
+    depends_on:
+
+      - database
